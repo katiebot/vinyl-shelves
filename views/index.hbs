@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Records</title>
+    <link href="styles.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="wrapper">
+    <div class="delimiter"></div>
+    {{#each releases}}
+      <ul>
+      {{#each this}}
+        <li>
+          <img src="/covers/{{id}}.jpg" alt="{{basic_information.title}}" height="360" width="360" />
+          <span>{{basic_information.title}} by {{artist}}</span>
+        </li>
+      {{/each}}
+      </ul>
+      <div class="delimiter"></div>
+    {{/each}}
+    </div>
+  </body>
+</html>

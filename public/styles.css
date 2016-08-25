@@ -1,0 +1,44 @@
+body {
+    background: #999;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.delimiter {
+    background: url(images/wood.jpg);
+    float: left;
+    height: 392px;
+    width: 16px;
+}
+
+ul {
+    background: url(images/wood.jpg);
+    float: left;
+    height: 360px;
+    list-style-type: none;
+    margin: 0;
+    padding: 16px 0;
+}
+
+ul li {
+    display: inline-block;
+    height: 360px;
+    overflow: hidden;
+    position: relative;
+    width: 10px;
+}
+
+ul li:hover {
+    cursor: pointer;
+    overflow: auto;
+    position: absolute;
+    top: 16px;
+    width: 360px;
+    z-index: 9999;
+}
+
+ul li span {
+    display: none;
+}
