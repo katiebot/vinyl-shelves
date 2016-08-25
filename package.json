@@ -1,11 +1,11 @@
 {
-  "name": "boilerplate-knex",
+  "name": "vinyl-shelves",
   "version": "0.1.0",
-  "description": "Express boilerplate with Knex.js",
-  "main": "index.js",
+  "description": "Displays Discogs user's record collections visually",
+  "main": "server/server.js",
   "scripts": {
     "knex": "knex",
-    "start": "node-inspector --web-port=8888 & nodemon --debug index.js",
+    "start": "node-inspector --web-port=8888 & nodemon --debug server/server.js",
     "test": "tape 'tests/**/*.test.js' | tap-spec"
   },
   "repository": {
@@ -19,12 +19,13 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dev-academy-challenges/boilerplate-knex/issues"
+    "url": "https://github.com/katiebot/vinyl-shelves/issues"
   },
-  "homepage": "https://github.com/dev-academy-challenges/boilerplate-knex#readme",
+  "homepage": "https://github.com/katiebot/vinyl-shelves#readme",
   "devDependencies": {
     "node-inspector": "^0.12.8",
     "nodemon": "^1.10.0",
+    "redux-devtools": "^3.3.1",
     "sqlite3": "^3.1.4",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0"
@@ -37,6 +38,11 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.14.0",
     "knex": "^0.11.9",
-    "promise": "^7.1.1"
+    "promise": "^7.1.1",
+    "react": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.6.1"
   }
 }

@@ -13,12 +13,14 @@ var accessData = {
   authorizeUrl: 'https://www.discogs.com/oauth/authorize?oauth_token=JDxAQpPtIQYRFCEPdfzGsbEoaroJTVhVjJwfmQli'
 };
 
+var userAgent = 'VinylShelves/1.0';
+
 module.exports = {
   get: get
 };
 
 function get(req, res) {
-  var collection = new Discogs('VinylShelves/1.0').user().collection();
+  var collection = new Discogs(userAgent).user().collection();
   var releasesArray = [];
   function setupCollection(req, collection, page) {
 
@@ -51,7 +53,7 @@ function getCollection(req, collection, page) {
       if (data) {
         var releases = data.releases;
         var pages = data.pagination.pages;
-        var db = new Discogs('VinylShelves/1.0', accessData).database(); // req.session.accessData
+        var db = new Discogs(userAgent, accessData).database(); // req.session.accessData
         for (var ii = 0; ii < releases.length; ii++) {
           // Get the images
           id = releases[ii].id;
