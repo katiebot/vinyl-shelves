@@ -13,12 +13,14 @@ var accessData = {
   authorizeUrl: 'https://www.discogs.com/oauth/authorize?oauth_token=JDxAQpPtIQYRFCEPdfzGsbEoaroJTVhVjJwfmQli'
 };
 
+//requestLimit and requestLimitInterval
+
 module.exports = {
   get: get
 };
 
 function get(req, res) {
-  var collection = new Discogs('VinylShelves/1.0').user().collection();
+  var collection = new Discogs('VinylShelves/1.0').setConfig({requestLimit: 240}).user().collection();
   var releasesArray = [];
   function setupCollection(req, collection, page) {
 
@@ -29,7 +31,7 @@ function get(req, res) {
 
       releasesArray = releasesArray.concat(releases);
 
-      if (page < pages) {
+      if (page < 3) {
         page++;
         setupCollection(req, collection, page);
       }
@@ -41,17 +43,18 @@ function get(req, res) {
       }
     });
   }
-  setupCollection(req, collection, 1);
+  setupCollection(req, collection, 3);
 }
 
 function getCollection(req, collection, page) {
   return new Promise(function(resolve, reject) {
-    collection.getReleases('katiebot', 0, {page: page, per_page: 100}, function(err, data) {
+    collection.getReleases('katiebot', 0, {page: page, per_page: 100}, function(err, data, rateLimit) {
+      console.log('releases', rateLimit);
       if (err) console.log(err);
       if (data) {
         var releases = data.releases;
         var pages = data.pagination.pages;
-        var db = new Discogs('VinylShelves/1.0', accessData).database(); // req.session.accessData
+        var db = new Discogs('VinylShelves/1.0', accessData).setConfig({requestLimit: 240}).database(); // req.session.accessData
         for (var ii = 0; ii < releases.length; ii++) {
           // Get the images
           id = releases[ii].id;
@@ -71,12 +74,14 @@ function getCollection(req, collection, page) {
 }
 
 function getImage(db, id) {
-  db.getRelease(id, function(err, data) {
+  db.getRelease(id, function(err, data, rateLimit) {
+    console.log('release', rateLimit);
     if (err) console.log(err);
     if (data && data.images) {
       var url = data.images[0].resource_url;
       if (url) {
         db.getImage(url, function(err, data, rateLimit) {
+          console.log('image', rateLimit);
           if (err) console.log(err);
           if (data) {
             fs.writeFile('./public/covers/' + id + '.jpg', data, 'binary', function(err) {
