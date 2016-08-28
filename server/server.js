@@ -8,7 +8,7 @@ var session = require('express-session');
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 
-var config = require('./webpack.config');
+var config = require('./../webpack.config.js');
 var compiler = webpack(config);
 
 //var index = require('./../routes/index');
